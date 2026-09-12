@@ -5,10 +5,12 @@
   "scripts": {
     "preview": "npx --yes serve . -l 4173",
     "pi:dev": "bash scripts/pi-dev.sh",
+    "pi:setup-cursor": "scp pi/kiosk.sh jackrugile@artpi.local:~/artpi-kiosk.sh && scp pi/setup-cursor.sh jackrugile@artpi.local:~/artpi-setup-cursor.sh && ssh -t jackrugile@artpi.local 'chmod +x ~/artpi-kiosk.sh ~/artpi-setup-cursor.sh && bash ~/artpi-setup-cursor.sh'",
     "pi:ssh": "ssh -t jackrugile@artpi.local",
     "pi:kiosk": "ssh jackrugile@artpi.local 'nohup bash ~/artpi-kiosk.sh > /tmp/artpi-kiosk.log 2>&1 &'",
     "pi:stop": "ssh jackrugile@artpi.local 'pkill -f chromium || true; pkill -f chromium-browser || true'",
     "pi:status": "ssh jackrugile@artpi.local 'hostname; uptime; echo; pgrep -a chromium || pgrep -a chromium-browser || echo \"chromium is not running\"'",
-    "pi:reboot": "ssh -t jackrugile@artpi.local 'sudo reboot'"
+    "pi:reboot": "ssh -t jackrugile@artpi.local 'sudo reboot'",
+    "pi:shutdown": "ssh -t jackrugile@artpi.local 'sudo shutdown -h now'"
   }
 }

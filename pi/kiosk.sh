@@ -11,10 +11,17 @@ xset s noblank || true
 
 if command -v unclutter-xfixes >/dev/null 2>&1; then
   pkill -x unclutter-xfixes >/dev/null 2>&1 || true
-  unclutter-xfixes --idle 0.1 --root >/dev/null 2>&1 &
+  unclutter-xfixes --idle 0 --root >/dev/null 2>&1 &
 elif command -v unclutter >/dev/null 2>&1; then
   pkill -x unclutter >/dev/null 2>&1 || true
-  unclutter -idle 0.1 -root >/dev/null 2>&1 &
+  unclutter -idle 0 -root >/dev/null 2>&1 &
+fi
+
+if command -v wtype >/dev/null 2>&1; then
+  (
+    sleep 2
+    wtype -M alt -M logo -P h -m logo -m alt >/dev/null 2>&1 || true
+  ) &
 fi
 
 if command -v chromium >/dev/null 2>&1; then
@@ -31,6 +38,7 @@ pkill -f chromium-browser >/dev/null 2>&1 || true
 sleep 0.5
 
 exec "$BROWSER" \
+  --ozone-platform=x11 \
   --kiosk \
   --password-store=basic \
   --noerrdialogs \

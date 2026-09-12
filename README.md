@@ -52,16 +52,19 @@ One-time repo setup: **Settings → Pages → Source → GitHub Actions**. After
 
 ## Raspberry Pi setup (once)
 
-On the Pi:
+On the Pi, hide the pointer (Wayland/labwc ignores `unclutter` alone). From this repo on your Mac:
 
 ```bash
-sudo apt update
-sudo apt install -y unclutter-xfixes
+npm run pi:setup-cursor
 ```
 
-(`unclutter` is fine if `unclutter-xfixes` is not available.)
+That copies `pi/kiosk.sh`, installs `unclutter` and `wtype`, and adds a labwc hide-cursor bind. Then restart the display:
 
-From this repo on your Mac:
+```bash
+npm run pi:kiosk
+```
+
+From this repo on your Mac, you can also copy just the launch script:
 
 ```bash
 scp pi/kiosk.sh jackrugile@artpi.local:~/artpi-kiosk.sh
@@ -91,10 +94,12 @@ Run from your Mac. All SSH to `jackrugile@artpi.local`.
 | Command | What it does |
 | --- | --- |
 | `npm run pi:ssh` | Interactive shell |
+| `npm run pi:setup-cursor` | Install cursor-hide tools and labwc bind |
 | `npm run pi:dev` | Serve locally and show it on the Pi |
 | `npm run pi:kiosk` | Kill existing Chromium, start kiosk (Pages) |
 | `npm run pi:stop` | Stop Chromium |
 | `npm run pi:status` | Hostname, uptime, Chromium process |
 | `npm run pi:reboot` | Reboot the Pi |
+| `npm run pi:shutdown` | Halt the Pi (wait for the LED to go dark, then unplug) |
 
-`pi:reboot` prompts for a sudo password unless the Pi user can reboot without one.
+`pi:reboot` and `pi:shutdown` prompt for a sudo password unless the Pi user can run those without one.
