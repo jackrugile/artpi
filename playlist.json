@@ -1,9 +1,13 @@
 {
-  "intervalSeconds": 15,
+  "intervalSeconds": 60,
   "items": [
     {
+      "url": "https://cdpn.io/pen/debug/bNqEPxE/4c80cfa9cede88965f45f7d5cd0a17f6",
+      "title": "rainbow firestorm"
+    },
+    {
       "url": "https://cdpn.io/pen/debug/MYpjyaX/cce2e2afaba2e5f2fd1c784cc1ee47fb",
-      "title": "example2"
+      "title": "flow field"
     }
   ]
 }
