@@ -1,5 +1,5 @@
 const DEFAULT_INTERVAL_SECONDS = 30;
-const LOAD_TIMEOUT_MS = 15000;
+const LOAD_TIMEOUT_MS = 20000;
 const PLAYLIST_URL = "./playlist.json";
 
 const frame = document.getElementById("frame");
