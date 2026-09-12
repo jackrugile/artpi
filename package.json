@@ -1,0 +1,13 @@
+{
+  "name": "artpi",
+  "private": true,
+  "description": "Always-on Raspberry Pi web art display",
+  "scripts": {
+    "preview": "npx --yes serve .",
+    "pi:ssh": "ssh -t jackrugile@artpi.local",
+    "pi:kiosk": "ssh jackrugile@artpi.local 'nohup bash ~/artpi-kiosk.sh > /tmp/artpi-kiosk.log 2>&1 &'",
+    "pi:stop": "ssh jackrugile@artpi.local 'pkill -f chromium || true; pkill -f chromium-browser || true'",
+    "pi:status": "ssh jackrugile@artpi.local 'hostname; uptime; echo; pgrep -a chromium || pgrep -a chromium-browser || echo \"chromium is not running\"'",
+    "pi:reboot": "ssh -t jackrugile@artpi.local 'sudo reboot'"
+  }
+}
