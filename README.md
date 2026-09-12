@@ -18,7 +18,7 @@ Edit `playlist.json` and push to `main`. The kiosk refetches the playlist on eac
 }
 ```
 
-Set `durationSeconds` on an item to override the default interval for that piece.
+Set `durationSeconds` on an item to override the default interval for that piece. A playlist with a single item stays on that URL; the interval is ignored.
 
 **Iframe caveat:** the cycler loads each URL in a fullscreen iframe. Sites that send `X-Frame-Options` or a strict `frame-ancestors` CSP will not display. CodePen debug URLs usually work.
 
@@ -27,6 +27,20 @@ Set `durationSeconds` on an item to override the default interval for that piece
 ```bash
 npm run preview
 ```
+
+To show that local preview on the Pi without deploying, pipe it over SSH:
+
+```bash
+npm run pi:dev
+```
+
+That starts `serve` on port 4173 (or reuses it), reverse-tunnels the port to the Pi, and points Chromium at `http://127.0.0.1:4173`. Leave the session open. Playlist edits show up on the next cycle; `cycler.js` / `index.html` changes need a restart (`Ctrl+C`, then `npm run pi:dev` again). When you are done:
+
+```bash
+npm run pi:kiosk
+```
+
+That points the display back at GitHub Pages.
 
 ## GitHub Pages
 
@@ -77,7 +91,8 @@ Run from your Mac. All SSH to `jackrugile@artpi.local`.
 | Command | What it does |
 | --- | --- |
 | `npm run pi:ssh` | Interactive shell |
-| `npm run pi:kiosk` | Kill existing Chromium, start kiosk |
+| `npm run pi:dev` | Serve locally and show it on the Pi |
+| `npm run pi:kiosk` | Kill existing Chromium, start kiosk (Pages) |
 | `npm run pi:stop` | Stop Chromium |
 | `npm run pi:status` | Hostname, uptime, Chromium process |
 | `npm run pi:reboot` | Reboot the Pi |

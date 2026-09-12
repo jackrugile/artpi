@@ -3,7 +3,8 @@
   "private": true,
   "description": "Always-on Raspberry Pi web art display",
   "scripts": {
-    "preview": "npx --yes serve .",
+    "preview": "npx --yes serve . -l 4173",
+    "pi:dev": "bash scripts/pi-dev.sh",
     "pi:ssh": "ssh -t jackrugile@artpi.local",
     "pi:kiosk": "ssh jackrugile@artpi.local 'nohup bash ~/artpi-kiosk.sh > /tmp/artpi-kiosk.log 2>&1 &'",
     "pi:stop": "ssh jackrugile@artpi.local 'pkill -f chromium || true; pkill -f chromium-browser || true'",

@@ -1,5 +1,6 @@
 const DEFAULT_INTERVAL_SECONDS = 30;
 const LOAD_TIMEOUT_MS = 20000;
+const PLAYLIST_POLL_MS = 10000;
 const PLAYLIST_URL = "./playlist.json";
 
 const frame = document.getElementById("frame");
@@ -25,6 +26,12 @@ function clearTimers() {
   window.clearTimeout(loadTimer);
 }
 
+function schedulePlaylistCheck() {
+  advanceTimer = window.setTimeout(() => {
+    next();
+  }, PLAYLIST_POLL_MS);
+}
+
 async function fetchPlaylist() {
   const response = await fetch(`${PLAYLIST_URL}?t=${Date.now()}`, {
     cache: "no-store",
@@ -43,8 +50,13 @@ async function fetchPlaylist() {
   };
 }
 
-function show(item) {
+function show(item, stay) {
   clearTimers();
+
+  if (stay && frame.src === item.url) {
+    schedulePlaylistCheck();
+    return;
+  }
 
   loadTimer = window.setTimeout(() => {
     next();
@@ -52,6 +64,10 @@ function show(item) {
 
   frame.onload = () => {
     clearTimers();
+    if (stay) {
+      schedulePlaylistCheck();
+      return;
+    }
     advanceTimer = window.setTimeout(() => {
       next();
     }, itemDurationMs(item));
@@ -72,10 +88,16 @@ async function next() {
     return;
   }
 
+  if (items.length === 1) {
+    index = 0;
+    show(items[0], true);
+    return;
+  }
+
   index = index % items.length;
   const item = items[index];
   index += 1;
-  show(item);
+  show(item, false);
 }
 
 next();
