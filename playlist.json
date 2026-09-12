@@ -1,9 +1,13 @@
 {
-  "intervalSeconds": 300,
+  "intervalSeconds": 15,
   "items": [
     {
       "url": "https://cdpn.io/pen/debug/bNqEPxE/4c80cfa9cede88965f45f7d5cd0a17f6",
-      "title": "example"
+      "title": "example1"
+    },
+    {
+      "url": "https://jackrugile.com/lab/simplex-particles-v2/",
+      "title": "example2"
     }
   ]
 }
